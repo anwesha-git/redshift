@@ -60,8 +60,9 @@ The project template includes:
    This is where we'll define our SQL statements, which will be imported into the two other files above.
 ### redshift_cluster.ipynb 
    This is where we'll write code to create a redshift cluster and the required policy & role to access an S3 bucket and open the TCP port to communicate to the cluster. Finally, this notebook can be referred to decommission the cluster and roles created.
-### ER.jpeg
+### ER
    This contains the ER diagram for the fact-dimension table.
+   ![image](https://github.com/anwesha-git/redshift/blob/main/ER.JPG)
 
 ## Analysis
 After completion of the ETL pipeline, we can do multiple analyses based on the table data. A few examples are as below:
