@@ -66,7 +66,8 @@ The project template includes:
 
 ## Analysis
 After completion of the ETL pipeline, we can do multiple analyses based on the table data. A few examples are as below:
-1. most popular locations where songs are played
+1. most popular location where songs are played
    ```select location from
    (SELECT location, COUNT(*) AS play_count FROM songplays GROUP BY location ORDER BY play_count DESC LIMIT 1)```
-   
+2. When is the highest usage time of day by the hour for songs
+    ```SELECT EXTRACT(hour FROM start_time) AS hour_of_day, COUNT(*) AS play_count FROM songplays GROUP BY hour_of_day ORDER BY play_count DESC LIMIT 1; ```
