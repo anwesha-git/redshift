@@ -37,14 +37,14 @@ This third file s3://udacity-dend/log_json_path.json contains the meta informati
 Using the song and event datasets, we'll need to create a star schema optimized for queries on song play analysis. This includes the following tables.
 
 ### Fact Table
-####  songplays - records in event data associated with song plays i.e. records with page NextSong
+####  songplay - records in event data associated with song plays i.e. records with page NextSong
 songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent
 ###  Dimension Tables
-####  users - users in the app
+####  user - users in the app
 user_id, first_name, last_name, gender, level
-####  songs - songs in music database
+####  song - songs in music database
 song_id, title, artist_id, year, duration
-####  artists - artists in music database
+####  artist - artists in music database
 artist_id, name, location, lattitude, longitude
 ####  time - timestamps of records in songplays broken down into specific units
 start_time, hour, day, week, month, year, weekday
@@ -67,13 +67,13 @@ The project template includes:
 After completion of the ETL pipeline, we can do multiple analyses based on the table data. A few examples are as below:
 1. most popular location where songs are played
 
-   ``` SELECT location from (SELECT location, COUNT(*) AS play_count FROM songplays GROUP BY location ORDER BY play_count DESC LIMIT 1) ```
+   ``` SELECT location from (SELECT location, COUNT(*) AS play_count FROM songplay GROUP BY location ORDER BY play_count DESC LIMIT 1) ```
 2. When is the highest usage time of day by the hour for songs
 
-    ``` SELECT EXTRACT(hour FROM start_time) AS hour_of_day, COUNT(*) AS play_count FROM songplays GROUP BY hour_of_day ORDER BY play_count DESC LIMIT 1; ```
+    ``` SELECT EXTRACT(hour FROM start_time) AS hour_of_day, COUNT(*) AS play_count FROM songplay GROUP BY hour_of_day ORDER BY play_count DESC LIMIT 1; ```
 3. Find the average duration of songs in the database.
 
-    ``` SELECT AVG(duration) AS average_duration FROM songs ```
+    ``` SELECT AVG(duration) AS average_duration FROM song ```
 4. Find the total duration of songs played by each artist.
 
-     ``` SELECT artists.name AS artist_name, SUM(songs.duration) AS total_duration FROM artists JOIN songs ON artists.artist_id = songs.artist_id JOIN songplays ON songs.song_id = songplays.song_id GROUP BY artists.name; ```
+     ``` SELECT artist.name AS artist_name, SUM(song.duration) AS total_duration FROM artist JOIN song ON artist.artist_id = song.artist_id JOIN songplay ON song.song_id = songplay.song_id GROUP BY artist.name; ```
