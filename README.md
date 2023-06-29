@@ -62,12 +62,19 @@ The project template includes:
 ### redshift_cluster.ipynb 
    This is where we'll write code to create a redshift cluster and the required policy & role to access an S3 bucket and open the TCP port to communicate to the cluster. Finally, this notebook can be referred to decommission the cluster and roles created.
 ### ER.jpeg
-    This is the ER diagram for the fact-dimension table.
+   This is the ER diagram for the fact-dimension table.
 
 ## Analysis
 After completion of the ETL pipeline, we can do multiple analyses based on the table data. A few examples are as below:
 1. most popular location where songs are played
-   ```select location from
-   (SELECT location, COUNT(*) AS play_count FROM songplays GROUP BY location ORDER BY play_count DESC LIMIT 1)```
+   ``` SELECT location from
+   (SELECT location, COUNT(*) AS play_count FROM songplays GROUP BY location ORDER BY play_count DESC LIMIT 1) ```
 2. When is the highest usage time of day by the hour for songs
-    ```SELECT EXTRACT(hour FROM start_time) AS hour_of_day, COUNT(*) AS play_count FROM songplays GROUP BY hour_of_day ORDER BY play_count DESC LIMIT 1; ```
+    ``` SELECT EXTRACT(hour FROM start_time) AS hour_of_day, COUNT(*) AS play_count FROM songplays GROUP BY hour_of_day ORDER BY play_count DESC LIMIT 1; ```
+3. Find the average duration of songs in the database.
+    ``` SELECT AVG(duration) AS average_duration FROM songs ```
+4. Find the total duration of songs played by each artist.
+     ``` SELECT artists.name AS artist_name, SUM(songs.duration) AS total_duration FROM artists 
+    JOIN songs ON artists.artist_id = songs.artist_id
+    JOIN songplays ON songs.song_id = songplays.song_id
+    GROUP BY artists.name; ```
