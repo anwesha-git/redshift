@@ -77,6 +77,4 @@ After completion of the ETL pipeline, we can do multiple analyses based on the t
     ``` SELECT AVG(duration) AS average_duration FROM songs ```
 4. Find the total duration of songs played by each artist.
 
-     ``` SELECT artists.name AS artist_name, SUM(songs.duration) AS total_duration FROM artists 
-    JOIN songs ON artists.artist_id = songs.artist_id
-    JOIN songplays ON songs.song_id = songplays.song_id GROUP BY artists.name; ```
+     ``` SELECT artists.name AS artist_name, SUM(songs.duration) AS total_duration FROM artists JOIN songs ON artists.artist_id = songs.artist_id JOIN songplays ON songs.song_id = songplays.song_id GROUP BY artists.name; ```
